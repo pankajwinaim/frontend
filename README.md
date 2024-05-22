@@ -14,7 +14,7 @@ using React and Next.js using typeScripting.
    npm install
    ```
 
-3. **Create a `.env.local` file** in the root directory with the b
+3. **Create a `.env.local` file** in the root directory
 URL:
    ```
    NEXT_PUBLIC_API_URL=http://localhost:3000
@@ -33,3 +33,8 @@ URL:
 
 - `/`: Home page showing the list of users
 - `/adduser`: Page to add a new user
+
+
+    for demo purpose please find screenshot video how application is appearing
+
+    https://www.awesomescreenshot.com/video/27923685?key=e4f6ac549493a0bd2d2545f1069f1aee

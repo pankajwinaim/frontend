@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import styles from '../styles/AddUser.module.css';
 
 const AddUser = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
@@ -21,9 +21,14 @@ const AddUser = () => {
         password,
       });
       router.push('/');
-    } catch (err) {
+    } catch (err: any) {
       setError(err.response?.data?.message || 'An error occurred');
     }
+  };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => 
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setter(e.target.value);
   };
 
   return (
@@ -37,7 +42,7 @@ const AddUser = () => {
             type="text"
             id="firstName"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={handleInputChange(setFirstName)}
             required
           />
         </div>
@@ -47,7 +52,7 @@ const AddUser = () => {
             type="text"
             id="lastName"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={handleInputChange(setLastName)}
             required
           />
         </div>
@@ -57,7 +62,7 @@ const AddUser = () => {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleInputChange(setEmail)}
             required
           />
         </div>
@@ -67,7 +72,7 @@ const AddUser = () => {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleInputChange(setPassword)}
             required
           />
         </div>
